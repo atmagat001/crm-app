@@ -1,113 +1,122 @@
-import React from 'react'
-import './Form.css'
-import {v4 as uuidv4} from 'uuid'
+import React, { useState } from "react";
+import "./Form.css";
+import { v4 as uuidv4 } from "uuid";
 
+function Form() {
+  const [name, setName] = useState("");
+  const [owner, setOwner] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [lotArea, setLotArea] = useState("");
+  const [pricePerSqm, setPricePerSqm] = useState("");
+  const [zoning, setZoning] = useState("");
+  const [currentUse, setCurrentUse] = useState("");
+  const [listings, setListings] = useState([]);
 
-function Form(
-    {listings, setListings, name, setName, owner, setOwner, address, setAddress, city, setCity, lotArea, setLotArea, pricePerSqm, setPricePerSqm, zoning, setZoning, currentUse, setCurrentUse, id, setId, edit, setEdit, input, setInput}   
-
-
-) {
-
-    const onInputChange = (e) => {
-       
-        switch(e.target.name){
-            case 'name':
-                setName(e.target.value)
-                setInput({...input, name: ''})
-                break
-            case 'owner':
-                setOwner(e.target.value)
-                break
-            case 'address':
-                setAddress(e.target.value)
-                break
-            case 'city':
-                setCity(e.target.value)
-                break
-            case 'lot-area':
-                setLotArea(e.target.value)
-                break
-            case 'price-persqm':
-                setPricePerSqm(e.target.value)
-                break
-            case 'zoning':
-                setZoning(e.target.value)
-                break
-            case 'current-use':
-                setCurrentUse(e.target.value)
-                break
-            default:
-                break
-        }
-
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !name ||
+      !owner ||
+      !address ||
+      !city ||
+      !lotArea ||
+      !pricePerSqm ||
+      !zoning ||
+      !currentUse
+    ) {
+      alert("Please fill in all fields");
+      return;
     }
 
+    const newListing = {
+      id: uuidv4(),
+      name,
+      owner,
+      address,
+      city,
+      lotArea,
+      pricePerSqm,
+      zoning,
+      currentUse,
+    };
 
-    const handleSubmit = (e) => {
-      
-        e.preventDefault()
-        if(!name || !owner || !address || !city || !lotArea || !pricePerSqm || !zoning || !currentUse){
-            alert('Please fill in all fields')
-            return
-        }
+    setListings([...listings, newListing]);
 
-        const newListing = {
-            id: uuidv4(),
-            name,
-            owner,
-            address,
-            city,
-            lotArea,
-            pricePerSqm,
-            zoning,
-            currentUse
-        }
-
-        setListings([...listings, newListing])
-        
-        
-        setInput({
-            name: '',
-            owner: '',
-            address: '',
-            city: '',
-            lotArea: '',
-            pricePerSqm: '',
-            zoning: '',
-            currentUse: ''
-        })
-
-
-
-    }
-
+    setName("");
+    setOwner("");
+    setAddress("");
+    setCity("");
+    setLotArea("");
+    setPricePerSqm("");
+    setZoning("");
+    setCurrentUse("");
+  };
 
   return (
     <div>
-        <form 
-            className="form"
-            onSubmit={handleSubmit}
-        >
-            <input type="text" name ="name"  onChange={onInputChange} placeholder="Name" value={name}/>
-            <input type="text" name ="owner"  onChange={onInputChange} placeholder="Owner on title" />
-            <input type="text" name ="address"  onChange={onInputChange} placeholder="Address" />
-            <input type="text" name ="city"  onChange={onInputChange} placeholder="City" />
-            <input type="text" name ="lot-area"  onChange={onInputChange} placeholder="Lot Area" />
-            <input type="text" name ="price-persqm"  onChange={onInputChange} placeholder="Price per sqm" />
-            <input type="text" name ="zoning"  onChange={onInputChange} placeholder="Zoning" />
-            <input type="text" name ="current-use"  onChange={onInputChange} placeholder="Current Use" />
+      <form className="form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          value={name}
+        />
+        <input
+          type="text"
+          name="owner"
+          onChange={(e) => setOwner(e.target.value)}
+          placeholder="Owner on title"
+          value={owner}
+        />
+        <input
+          type="text"
+          name="address"
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Address"
+          value={address}
+        />
+        <input
+          type="text"
+          name="city"
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="City"
+          value={city}
+        />
+        <input
+          type="text"
+          name="lot-area"
+          onChange={(e) => setLotArea(e.target.value)}
+          placeholder="Lot Area"
+          value={lotArea}
+        />
+        <input
+          type="text"
+          name="price-persqm"
+          onChange={(e) => setPricePerSqm(e.target.value)}
+          placeholder="Price per sqm"
+          value={pricePerSqm}
+        />
+        <input
+          type="text"
+          name="zoning"
+          onChange={(e) => setZoning(e.target.value)}
+          placeholder="Zoning"
+          value={zoning}
+        />
+        <input
+          type="text"
+          name="current-use"
+          onChange={(e) => setCurrentUse(e.target.value)}
+          placeholder="Current Use"
+          value={currentUse}
+        />
 
-            <button type="submit"
-                
-            
-            >Submit</button>
-        </form>
-
-
+        <button type="submit">Submit</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default Form
+export default Form;
