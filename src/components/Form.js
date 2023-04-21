@@ -13,6 +13,38 @@ function Form() {
   const [currentUse, setCurrentUse] = useState("");
   const [listings, setListings] = useState([]);
 
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "owner":
+        setOwner(value);
+        break;
+      case "address":
+        setAddress(value);
+        break;
+      case "city":
+        setCity(value);
+        break;
+      case "lot-area":
+        setLotArea(value);
+        break;
+      case "price-persqm":
+        setPricePerSqm(value);
+        break;
+      case "zoning":
+        setZoning(value);
+        break;
+      case "current-use":
+        setCurrentUse(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -59,62 +91,76 @@ function Form() {
         <input
           type="text"
           name="name"
-          onChange={(e) => setName(e.target.value)}
+          onChange={onInputChange}
           placeholder="Name"
           value={name}
         />
         <input
           type="text"
           name="owner"
-          onChange={(e) => setOwner(e.target.value)}
+          onChange={onInputChange}
           placeholder="Owner on title"
           value={owner}
         />
         <input
           type="text"
           name="address"
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={onInputChange}
           placeholder="Address"
           value={address}
         />
         <input
           type="text"
           name="city"
-          onChange={(e) => setCity(e.target.value)}
+          onChange={onInputChange}
           placeholder="City"
           value={city}
         />
         <input
           type="text"
           name="lot-area"
-          onChange={(e) => setLotArea(e.target.value)}
+          onChange={onInputChange}
           placeholder="Lot Area"
           value={lotArea}
         />
         <input
           type="text"
           name="price-persqm"
-          onChange={(e) => setPricePerSqm(e.target.value)}
+          onChange={onInputChange}
           placeholder="Price per sqm"
           value={pricePerSqm}
         />
         <input
           type="text"
           name="zoning"
-          onChange={(e) => setZoning(e.target.value)}
+          onChange={onInputChange}
           placeholder="Zoning"
           value={zoning}
         />
         <input
           type="text"
           name="current-use"
-          onChange={(e) => setCurrentUse(e.target.value)}
+          onChange={onInputChange}
           placeholder="Current Use"
           value={currentUse}
         />
-
-        <button type="submit">Submit</button>
+        <button type="submit">Add Listing</button>
       </form>
+      <h2>Listings</h2>
+      <div className="listings-container">
+        {listings.map((listing) => (
+          <div key={listing.id} className="listing">
+            <h3>{listing.name}</h3>
+            <p>Owner: {listing.owner}</p>
+            <p>Address: {listing.address}</p>
+            <p>City: {listing.city}</p>
+            <p>Lot Area: {listing.lotArea}</p>
+            <p>Price per sqm: {listing.pricePerSqm}</p>
+            <p>Zoning: {listing.zoning}</p>
+            <p>Current Use: {listing.currentUse}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

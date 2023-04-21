@@ -1,52 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import './App.css';
-import Header from './components/Header'; 
-import Listings from './components/Listings';
-import Form from './components/Form';
-
-
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Listings from "./components/Listings";
+import Form from "./components/Form";
 
 function App() {
-
-  const initialState = JSON.parse(localStorage.getItem('listings')) || []
-  const [listings, setListings] = useState(initialState)
-  const [name, setName] = useState('')
-  const [owner, setOwner] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [lotArea, setLotArea] = useState('')
-  const [pricePerSqm, setPricePerSqm] = useState('')
-  const [zoning, setZoning] = useState('')
-  const [currentUse, setCurrentUse] = useState('')
-  const [id, setId] = useState('')
-  const [edit, setEdit] = useState(false)
+  const initialState = JSON.parse(localStorage.getItem("listings")) || [];
+  const [listings, setListings] = useState(initialState);
+  const [name, setName] = useState("");
+  const [owner, setOwner] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [lotArea, setLotArea] = useState("");
+  const [pricePerSqm, setPricePerSqm] = useState("");
+  const [zoning, setZoning] = useState("");
+  const [currentUse, setCurrentUse] = useState("");
+  const [id, setId] = useState("");
+  const [edit, setEdit] = useState(false);
   const [input, setInput] = useState({
-    name: '',
-    owner: '',
-    address: '',
-    city: '',
-    lotArea: '',
-    pricePerSqm: '',
-    zoning: '',
-    currentUse: '',
-    id: ''
-  })
-
+    name: "",
+    owner: "",
+    address: "",
+    city: "",
+    lotArea: "",
+    pricePerSqm: "",
+    zoning: "",
+    currentUse: "",
+    id: "",
+  });
 
   useEffect(() => {
-    localStorage.setItem('listings', JSON.stringify(listings))
-  }, [listings])
-
-
+    localStorage.setItem("listings", JSON.stringify(listings));
+  }, [listings]);
 
   return (
     <div className="App">
       <div>
-      <Header />
+        <Header />
       </div>
 
-      <div><Form 
+      <div>
+        <Form
           listings={listings}
           setListings={setListings}
           name={name}
@@ -71,20 +65,13 @@ function App() {
           setEdit={setEdit}
           input={input}
           setInput={setInput}
+        />
+      </div>
 
-
-
-
-      /></div>
-      
-      <div> <Listings
-      
-
-      
-      
-      /> </div>
-
-
+      {/* <div>
+        {" "}
+        <Listings />{" "}
+      </div> */}
     </div>
   );
 }
